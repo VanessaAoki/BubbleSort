@@ -1,21 +1,42 @@
-#bubble_sort
+# bubble_sort
 
-def bubble_sort(a)
-  puts a if a.length <= 1
-  n = a.length - 1
+def bubble_sort(arr)
+  puts arr if arr.length <= 1
+  n = arr.length - 1
 
-    loop do
-      swap = false
-      n.times do |i|
-        if a[i] > a[i+1]
-          a[i], a[i+1] = a[i+1], a[i]
-          swap = true
-        end
+  loop do
+    swap = false
+    n.times do |i|
+      if arr[i] > arr[i + 1]
+        arr[i], arr[i + 1] = arr[i + 1], arr[i]
+        swap = true
       end
-      break if swap == false
     end
-  a
+    break if swap == false
+  end
+  arr
 end
 
-a = [4, 3, 78, 2, 0, 2]
-p bubble_sort(a)
+arr = [4, 3, 78, 2, 0, 2]
+p bubble_sort(arr)
+
+def bubble_sort_by(arr)
+  puts arr if arr.length <= 1
+  n = arr.length - 1
+
+  loop do
+    swap = false
+    n.times do |i|
+      if yield(arr[i], arr[i + 1]).positive?
+        arr[i], arr[i + 1] = arr[i + 1], arr[i]
+        swap = true
+      end
+    end
+    break if swap == false
+  end
+  p arr
+end
+
+bubble_sort_by(%w[hi hello hey]) do |left, right|
+  left.length - right.length
+end
